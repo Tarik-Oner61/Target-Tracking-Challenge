@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Local secrets and editor/OS files
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local runtime outputs; deliver selected training results under yolo/results.
+logs/
+*.log
+*.tmp
+
+# MCU build outputs; keep source and documented build/upload commands.
+*.o
+*.elf
+*.hex
