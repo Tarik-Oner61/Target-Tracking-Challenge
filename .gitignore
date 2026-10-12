@@ -20,7 +20,7 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Local runtime outputs; deliver selected training results under yolo/results.
+# Local runtime outputs; deliver selected results under hedef_hizalama/yolo/results.
 logs/
 *.log
 *.tmp

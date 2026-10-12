@@ -7,7 +7,7 @@
 
 Bu görev kapsamında adaylardan, kamera görüntüsü üzerinden kırmızı renkli, 3B yazıcıyla üretilmiş bir drone modelini: ["C:\Users\mtari\Downloads\WhatsApp Image 2026-10-12 at 16.45.35.jpeg"]&#x20;
 
-![Hedef drone modeli](docs/assets/hedef-drone.jpeg)
+![Hedef drone modeli](hedef-drone.jpeg)
 
 YOLO kullanarak tespit eden ve iki eksenli NEMA 17 step motorlarla hedef arama modunda hedefi tespit edip, tespit ettikten sonra hedefe otonom olarak hizalanan bir sistem geliştirmeleri beklenmektedir.
 
@@ -27,20 +27,22 @@ Sistem, hedefin kamera görüntüsündeki konumunu analiz ederek gerekli hareket
 
 ```
 Target-Tracking-Challenge/
-├── targeting_system/
-├── dashboard/
-├── mcu/
-├── yolo/
+├── hedef-drone.jpeg
+├── hedef_hizalama/
+│   ├── targeting_system/
+│   ├── dashboard/
+│   ├── mcu/
+│   └── yolo/
 └── README.md
 ```
 
-**targeting_system/** – Laptop üzerinde çalışan hedef tespit, konum hesaplama, otonom hizalama ve UART haberleşmesi.
+**hedef_hizalama/targeting_system/** – Laptop üzerinde çalışan hedef tespit, konum hesaplama, otonom hizalama ve UART haberleşmesi.
 
-**dashboard/** – Kamera görüntüsünün gösterilmesi, sistem durumunun izlenmesi ve durdurma kontrolü.
+**hedef_hizalama/dashboard/** – Kamera görüntüsünün gösterilmesi, sistem durumunun izlenmesi ve durdurma kontrolü.
 
-**mcu/** – Mikrodenetleyici yazılımı, seri haberleşme ve STEP/DIR motor kontrolü.
+**hedef_hizalama/mcu/** – Mikrodenetleyici yazılımı, seri haberleşme ve STEP/DIR motor kontrolü.
 
-**yolo/** – Kullanılan datasetin bilgileri, eğitim sonuçları ve eğitilen YOLO model dosyası.
+**hedef_hizalama/yolo/** – Kullanılan datasetin bilgileri, eğitim sonuçları ve eğitilen YOLO model dosyası.
 
 ## GitHub Teslim Süreci
 

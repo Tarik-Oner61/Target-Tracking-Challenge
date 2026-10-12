@@ -8,4 +8,4 @@ Dataset bilgilerini, eğitim sonuçlarını ve eğitilmiş YOLO modelini bu klas
 
 Kullanılan eğitim komutunu ve modelin targeting_system tarafından nasıl yüklendiğini belgeleyin. Büyük model/veri dosyaları için Git LFS kullanılabilir.
 
-`docs/assets/hedef-drone.jpeg` görevin hedef referans fotoğrafıdır; tek başına eğitilmiş model veya eğitim veri seti değildir.
+Repo kökündeki [hedef-drone.jpeg](../../hedef-drone.jpeg) görevin hedef referans fotoğrafıdır; tek başına eğitilmiş model veya eğitim veri seti değildir.
