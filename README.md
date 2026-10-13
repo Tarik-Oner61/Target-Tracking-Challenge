@@ -16,6 +16,7 @@ Sistem, hedefin kamera görüntüsündeki konumunu analiz ederek gerekli hareket
 ## Teknik Gereksinimler
 
 - **Laptop yazılımı:** Python
+- **Kamera:** Logitech c270
 - **Nesne tespiti:** YOLO
 - **Dataset:** Araştırılacak ve uygun veri setiyle(Hazır veya kendi veri setiniz) model eğitilecektir.
 - **MCU:** Ardunio UNO; programlama dili serbesttir.
