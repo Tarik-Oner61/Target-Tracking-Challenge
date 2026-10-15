@@ -18,11 +18,20 @@ Sistem, hedefin kamera görüntüsündeki konumunu analiz ederek gerekli hareket
 - **Laptop yazılımı:** Python
 - **Kamera:** Logitech c270
 - **Nesne tespiti:** YOLO
-- **Dataset:** Araştırılacak ve uygun veri setiyle(Hazır veya kendi veri setiniz) model eğitilecektir.
+- **Dataset:** Drone veri setleri tarafımızdan sağlanmaktadır. Aşağıda paylaşılan veri setleri kullanılarak YOLO modeli eğitilecektir; adaylardan ayrıca veri seti araştırmaları beklenmemektedir.
 - **MCU:** Ardunio UNO; programlama dili serbesttir.
 - **Haberleşme:** UART&#x20;
 - **Motor kontrolü:** NEMA 17 step motorların yaw ve pitch eksenlerinde kontrolü.
 - **Arayüz:** Çeşitli arayüzler serbesttir. Canlı kamera görüntüsü ve sistemi durdurma işlevi zorunludur.
+
+## Sağlanan Drone Veri Setleri
+
+Eğitim için adaylara aşağıdaki iki Roboflow veri seti sağlanmaktadır:
+
+1. [Drone veri seti 1 — PARS Dataset V2](https://universe.roboflow.com/new-workspace-maa2l/pars-dataset-v2/browse?queryText=class%3ADrone&pageSize=100&startingIndex=1100&browseQuery=true)
+2. [Drone veri seti 2 — PARS](https://universe.roboflow.com/hasans-workspace-lnuhg/pars-9yaon/browse?queryText=class%3ADrone&pageSize=100&startingIndex=100&browseQuery=true)
+
+Adaylar, sağlanan veri setleri üzerinden model eğitimi ve hedef tespit sistemini geliştirecektir. Eğitimde kullanılan veri seti/sürüm bilgileri ve eğitim sonuçları `hedef_hizalama/yolo/` altında belgelenecektir. Veri seti bağlantıları ve kayıt bilgileri için [dataset açıklamasına](hedef_hizalama/yolo/dataset/README.md) bakabilirsiniz.
 
 ## Repository Yapısı
 
