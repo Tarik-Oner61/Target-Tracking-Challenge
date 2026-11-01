@@ -4,7 +4,7 @@ from pathlib import Path
 import cv2
 from ultralytics import YOLO
 from hizalama import hizalama_karari
-from protokol import komut_olustur
+from haberlesme import SimulasyonBaglantisi
 
 # Bu dosyanın konumundan hareketle modelin yolunu bul.
 model_yolu = (
@@ -19,6 +19,7 @@ if not model_yolu.is_file():
 # Modeli yalnızca bir kez yükle.
 model = YOLO(str(model_yolu))
 
+baglanti = SimulasyonBaglantisi()
 kamera = cv2.VideoCapture(0, cv2.CAP_AVFOUNDATION)
 
 try:
@@ -34,7 +35,6 @@ try:
     # Başlangıçta hedef henüz görülmedi.
     kayip_baslangici = monotonic()
 
-    onceki_komut = None
 
     while True:
         basarili, goruntu = kamera.read()
@@ -150,13 +150,8 @@ try:
 
                 durum = f"ARAMA ISTEGI | Yatay: {yatay:+d}"
 
-        # Güncel yönlerden mesaj oluştur; henüz donanıma gönderme.
-        komut = komut_olustur(yatay, dikey)
-
-        # Terminali doldurmamak için yalnızca değişen komutu yazdır.
-        if komut != onceki_komut:
-            print(f"[SIMULASYON] {komut.strip()}")
-            onceki_komut = komut
+        # Güncel yönleri haberleşme katmanına ilet.
+        baglanti.gonder(yatay, dikey)
 
         # Güncel hizalama, bekleme veya arama durumunu göster.
         cv2.putText(
@@ -177,6 +172,10 @@ except KeyboardInterrupt:
     print("\nKullanici tarafindan durduruldu.")
 
 finally:
-    # Hata olsa da normal çıkılsa da kamerayı serbest bırak.
-    kamera.release()
-    cv2.destroyAllWindows()
+    try:
+        # Çıkışta STOP üret ve bağlantıyı kapat.
+        baglanti.kapat()
+    finally:
+        # Bağlantı kapatılırken hata olsa da kamerayı bırak.
+        kamera.release()
+        cv2.destroyAllWindows()
