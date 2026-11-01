@@ -4,6 +4,7 @@ from pathlib import Path
 import cv2
 from ultralytics import YOLO
 from hizalama import hizalama_karari
+from protokol import komut_olustur
 
 # Bu dosyanın konumundan hareketle modelin yolunu bul.
 model_yolu = (
@@ -32,6 +33,8 @@ try:
 
     # Başlangıçta hedef henüz görülmedi.
     kayip_baslangici = monotonic()
+
+    onceki_komut = None
 
     while True:
         basarili, goruntu = kamera.read()
@@ -146,6 +149,14 @@ try:
                 dikey = 0
 
                 durum = f"ARAMA ISTEGI | Yatay: {yatay:+d}"
+
+        # Güncel yönlerden mesaj oluştur; henüz donanıma gönderme.
+        komut = komut_olustur(yatay, dikey)
+
+        # Terminali doldurmamak için yalnızca değişen komutu yazdır.
+        if komut != onceki_komut:
+            print(f"[SIMULASYON] {komut.strip()}")
+            onceki_komut = komut
 
         # Güncel hizalama, bekleme veya arama durumunu göster.
         cv2.putText(
