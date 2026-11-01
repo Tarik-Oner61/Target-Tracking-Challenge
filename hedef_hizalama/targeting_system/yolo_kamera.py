@@ -1,7 +1,9 @@
+from time import monotonic
 from pathlib import Path
 
 import cv2
 from ultralytics import YOLO
+from hizalama import hizalama_karari
 
 # Bu dosyanın konumundan hareketle modelin yolunu bul.
 model_yolu = (
@@ -23,6 +25,13 @@ try:
         raise RuntimeError("Kamera acilamadi!")
 
     print("Cikmak icin goruntu penceresindeyken Q tusuna basin.")
+
+    # Arama için başlangıç ayarları; fiziksel olarak ayarlanmış değildir.
+    kayip_bekleme = 1.0
+    arama_yon_suresi = 2.0
+
+    # Başlangıçta hedef henüz görülmedi.
+    kayip_baslangici = monotonic()
 
     while True:
         basarili, goruntu = kamera.read()
@@ -60,9 +69,17 @@ try:
         )
 
         kutular = sonuclar[0].boxes
+
+        # Her kareye hareket isteği olmadan başla.
+        yatay = 0
+        dikey = 0
+        karar = "HEDEF_YOK"
         durum = "Drone bulunamadi"
 
         if len(kutular) > 0:
+            # Hedef görüldü; kayıp süresini sıfırla.
+            kayip_baslangici = None
+
             # Drone'lar arasından en yüksek güven skorunu seç.
             secilen = int(kutular.conf.argmax().item())
 
@@ -93,16 +110,44 @@ try:
                 2,
             )
 
-            # Her eksen için merkezin çevresinde tolerans tanımla.
-            tolerans_x = genislik * 0.03
-            tolerans_y = yukseklik * 0.03
+            # Test ettiğimiz fonksiyonla hareket yönlerini belirle.
+            karar, yatay, dikey = hizalama_karari(
+                hata_x, hata_y, genislik, yukseklik
+            )
 
-            if abs(hata_x) <= tolerans_x and abs(hata_y) <= tolerans_y:
+            if karar == "HIZALI":
                 durum = "GORUNTUDE HIZALI"
             else:
-                durum = f"HIZALAMA GEREKLI | X: {hata_x:+d} Y: {hata_y:+d}"
+                durum = (
+                    f"HIZALAMA GEREKLI | "
+                    f"Yatay: {yatay:+d} Dikey: {dikey:+d}"
+                )
 
-        # Hedef yoksa eski hata yerine "Drone bulunamadi" göster.
+        else:
+            simdi = monotonic()
+
+            # Hedefin kaybolduğu ilk karede süreyi başlat.
+            if kayip_baslangici is None:
+                kayip_baslangici = simdi
+
+            kayip_suresi = simdi - kayip_baslangici
+
+            if kayip_suresi < kayip_bekleme:
+                karar = "HEDEF_YOK"
+                durum = "HEDEF YOK | BEKLENIYOR"
+            else:
+                karar = "ARAMA"
+
+                # Bekleme bittikten sonra her 2 saniyede yön değiştir.
+                arama_suresi = kayip_suresi - kayip_bekleme
+                arama_asamasi = int(arama_suresi / arama_yon_suresi)
+
+                yatay = 1 if arama_asamasi % 2 == 0 else -1
+                dikey = 0
+
+                durum = f"ARAMA ISTEGI | Yatay: {yatay:+d}"
+
+        # Güncel hizalama, bekleme veya arama durumunu göster.
         cv2.putText(
             isaretli_goruntu,
             durum,
