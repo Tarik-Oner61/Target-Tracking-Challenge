@@ -1,0 +1,6 @@
+ultralytics==8.4.197
+opencv-python==5.0.0.93
+torch==2.15.0
+torchvision==0.29.2
+PyYAML==6.0.3
+pyserial==3.5
