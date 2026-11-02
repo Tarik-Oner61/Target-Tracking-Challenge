@@ -97,3 +97,9 @@ Görüntüler diske kaydedilmez.
 Bu kontroller fiziksel motor veya gerçek UART testleri değildir.
 FPS ve durdurma gecikmesi sayısal olarak ölçülmemiştir.
 Bütün hata yolları uygulamalı olarak sınanmamıştır.
+
+## Komut geçmişi
+
+Ardışık aynı komutlar tekrar sayısıyla gruplanır.
+Son 500 geçmiş satırı bellekte tutulur.
+Temizle düğmesi yalnızca geçmişi siler; sistemin çalışma durumunu değiştirmez.

@@ -367,39 +367,94 @@ def main():
     gecmis.pack(fill="x", padx=12, pady=(0, 10))
 
     kayit_sayisi = 0
+    son_mesaj = None
+    tekrar_sayisi = 0
+    ilk_saat = ""
+
+    # Temizle düğmesi: yumuşak zemin, sade görünüm.
+    stil.configure(
+        "Temizle.TButton",
+        font=("Helvetica", 10),
+        foreground="#526580",
+        background="#E8EEF6",
+        borderwidth=0,
+        padding=(12, 6),
+    )
+    stil.map(
+        "Temizle.TButton",
+        background=[
+            ("pressed", "#D4DFED"),
+            ("active", "#DDE6F1"),
+        ],
+    )
 
     def gecmisi_temizle():
-        nonlocal kayit_sayisi
+        nonlocal kayit_sayisi, son_mesaj, tekrar_sayisi, ilk_saat
+
         gecmis.configure(state="normal")
         gecmis.delete("1.0", "end")
         gecmis.configure(state="disabled")
+
+        # Sonraki komut yeni bir kayıt olarak başlamalı.
         kayit_sayisi = 0
+        son_mesaj = None
+        tekrar_sayisi = 0
+        ilk_saat = ""
 
     ttk.Button(
         gecmis_baslik,
-        text="Temizle",
+        text="Geçmişi temizle",
         command=gecmisi_temizle,
+        style="Temizle.TButton",
     ).pack(side="right")
 
     def gecmise_ekle(mesaj):
-        nonlocal kayit_sayisi
+        nonlocal kayit_sayisi, son_mesaj, tekrar_sayisi, ilk_saat
 
-        # Kullanıcı eski kayıtları okuyorsa görünümü aşağı çekme.
         en_altta = gecmis.yview()[1] >= 0.99
+        eski_konum = gecmis.yview()[0]
         saat = datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
-        gecmis.configure(state="normal")
-        gecmis.insert("end", f"{saat}  {mesaj}\n")
-        kayit_sayisi += 1
+        # Yalnızca başarılı komut kayıtlarını grupla.
+        # Kullanıcı olayları ve hata mesajları ayrı satırlarda kalsın.
+        komut_kaydi = mesaj.startswith(
+            ("SİMÜLASYON | ", "PORTA YAZILDI | ")
+        )
 
-        if kayit_sayisi > 500:
-            gecmis.delete("1.0", "2.0")
-            kayit_sayisi -= 1
+        gecmis.configure(state="normal")
+
+        if komut_kaydi and mesaj == son_mesaj and kayit_sayisi > 0:
+            tekrar_sayisi += 1
+
+            # Son kayıt satırını güncelle; yeni satır ekleme.
+            baslangic = f"{kayit_sayisi}.0"
+            bitis = f"{kayit_sayisi}.end"
+
+            gecmis.delete(baslangic, bitis)
+            gecmis.insert(
+                baslangic,
+                f"{ilk_saat} → {saat}  {mesaj}  ×{tekrar_sayisi}",
+            )
+        else:
+            son_mesaj = mesaj
+            tekrar_sayisi = 1
+            ilk_saat = saat
+
+            gecmis.insert("end", f"{saat}  {mesaj}\n")
+            kayit_sayisi += 1
+
+            # En fazla 500 olay/komut grubu tut.
+            if kayit_sayisi > 500:
+                gecmis.delete("1.0", "2.0")
+                kayit_sayisi -= 1
 
         if en_altta:
             gecmis.see("end")
+        else:
+            gecmis.yview_moveto(eski_konum)
 
         gecmis.configure(state="disabled")
+
 
     # Bağlantının gerçekten yazdığı komutları gözlemle.
     # Zamanlama veya mesaj içeriği değiştirilmez.
