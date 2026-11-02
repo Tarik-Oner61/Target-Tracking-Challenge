@@ -108,3 +108,13 @@ veya tüm sistemin başarı oranını göstermez.
 - UART ve fiziksel motor sistemiyle doğrulama yapılmamıştır.
 - Doğrulama sırasında ölçülen çıkarım süresi, canlı uygulama
   FPS değeri olarak yorumlanmamalıdır.
+
+## Güncelleme — 2 Kasım 2026
+
+Yukarıdaki sınırlar eğitim tamamlandığındaki durumu anlatır.
+Sonrasında ayrı test kümesi değerlendirmesi tamamlanmıştır:
+[Test sonuçları](TEST_SONUCLARI.md).
+
+Model, canlı kamera ve dashboard uygulamasına bağlanmış;
+telefon ekranındaki drone fotoğrafıyla yazılım kontrolleri yapılmıştır.
+Fiziksel motor ve gerçek UART testleri yapılmamıştır.
