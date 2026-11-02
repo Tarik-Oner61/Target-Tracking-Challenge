@@ -37,7 +37,7 @@ Veri setinin sağladığı bölünmeler korunmuş, yeniden bölme yapılmamışt
 | --- | ---: | --- |
 | train | 4711 | Üç sorunlu örnek atlanarak 4708 görüntüyle eğitim |
 | valid | 994 | Eğitim sırasında doğrulama |
-| test | 498 | Bu aşamada henüz değerlendirilmedi |
+| test | 498 | Ayrı test değerlendirmesinde kullanıldı; sonuçlar ../results/TEST_SONUCLARI.md dosyasındadır |
 
 Görüntü ve etiket dosyalarının eşleşmesi kontrol edilmiş;
 etiketsiz görüntü veya görüntüsüz etiket bulunmamıştır.

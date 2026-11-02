@@ -58,3 +58,19 @@ tamamen bağımsız olduğunu tek başına kanıtlamaz.
 
 Bu sonuçlar motor kontrolünü, fiziksel hizalamayı veya farklı
 ortamlardaki başarıyı değerlendirmez.
+
+## Değerlendirme komutu
+
+Proje kökünden, sanal ortam aktifken çalıştırılmıştır:
+
+```bash
+yolo detect val \
+  model="hedef_hizalama/yolo/models/drone_yolo11n.pt" \
+  data="$HOME/Datasets/pars_v2/data_local.yaml" \
+  split=test imgsz=320 batch=2 device=mps workers=0 plots=True \
+  project="$HOME/Datasets/pars_v2_runs" \
+  name=test_degerlendirme
+```
+
+Veri seti ve `data_local.yaml` repo dışında tutulur.
+Başka bir bilgisayarda veri yolları ve işlem aygıtı uyarlanmalıdır.

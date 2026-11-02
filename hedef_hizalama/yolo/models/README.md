@@ -52,11 +52,16 @@ print(model.names)
 ```
 
 Bu kod yalnızca model yükleme örneğidir; görüntü üzerinde tahmin yapmaz.
-Bu belge hazırlanırken modelin `targeting_system` entegrasyonu
-henüz tamamlanmamıştır.
+Model, `targeting_system/yolo_kamera.py` ve `dashboard/uygulama.py`
+tarafından dosya konumuna göre hesaplanan yoldan yüklenir.
+Canlı uygulamalar yalnızca drone sınıfının tespitlerini kullanır.
 
 ## Kullanım sınırları
 
 Modelin doğrulama sonuçları, canlı kamera veya fiziksel hizalama
-başarısını tek başına göstermez. Test kümesi değerlendirmesi,
-canlı takip ve fiziksel motor testleri bu aşamada yapılmamıştır.
+başarısını tek başına göstermez. 498 görüntülük test kümesi
+değerlendirilmiştir; sonuçlar `../results/TEST_SONUCLARI.md` içindedir.
+
+Canlı kamera uygulaması, telefon ekranında gösterilen drone
+fotoğrafıyla denenmiştir. Gerçek UART ve fiziksel motor testleri
+yapılmamıştır.

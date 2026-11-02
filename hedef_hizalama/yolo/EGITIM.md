@@ -77,4 +77,6 @@ Tamamlanan çalışmanın `weights/best.pt` dosyası,
 Model üç sınıfı tanır: drone, f16 ve roket.
 
 Modelin Python ile yüklenmesi `models/README.md` içinde gösterilmiştir.
-Bu aşamada `targeting_system` entegrasyonu henüz yapılmamıştır.
+Model, `targeting_system/yolo_kamera.py` ve `dashboard/uygulama.py`
+uygulamalarına bağlanmıştır. Canlı kamera görüntüsünde yalnızca
+drone sınıfı (classes=[0]) kullanılır.

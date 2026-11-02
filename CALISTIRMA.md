@@ -47,7 +47,7 @@ uygulaması çalıştırılmamalıdır.
 - Başlat: Tespit bilgilerini gösterir ve hareket komutu üretimini açar.
 - Durdur veya Escape: STOP üretir; kamera önizlemesi devam eder.
 - Tekrar Başlat basılmadan hareket komutları yeniden başlamaz.
-- Komut geçmişi son 500 kaydı bellekte tutar.
+- Ardışık aynı komutlar tekrar sayısıyla gruplanır; son 500 geçmiş satırı bellekte tutulur.
 - Temizle yalnızca komut geçmişini temizler.
 - Pencereyi kapatma sırasında STOP gönderilmeye çalışılır.
 
